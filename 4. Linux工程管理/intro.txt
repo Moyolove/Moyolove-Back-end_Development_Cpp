@@ -1,0 +1,1 @@
+介绍CMake，Git，以及Linux系统运行时常用指令
