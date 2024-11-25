@@ -174,7 +174,7 @@ int recv_cb(int fd, int events, void* args){
         return 0;
     }
 
-    std::cout << conn->rbuffer << std::endl;
+    //std::cout << conn->rbuffer << std::endl;
     
     conn->rc += ret;
     //处理数据后存入wbuffer，此处仅以copy代替
@@ -245,15 +245,18 @@ int set_listener(int fd, zv_reactor_t* reactor, ZVCALLBACK cb){
 int main(int argc, char* argv[]){
     
     if(argc < 2) return -1;
-    short port = atoi(argv[1]);
-    int socketfd = init_server(port);
-
 
     zv_reactor_t reactor;
 
     zv_init_reactor(&reactor);
 
-    set_listener(socketfd, &reactor, accept_cb);//当listened fd有事件时，触发回调accept_cb
+    short port = atoi(argv[1]);
+    //监听100个端口
+    int i = 0;
+    for(i = 0; i < 100; i++){
+        int socketfd = init_server(port + i);
+        set_listener(socketfd, &reactor, accept_cb);//当listened fd有事件时，触发回调accept_cb
+    }
 
 
     epoll_event events[EVENTS_SIZE] = {0};
