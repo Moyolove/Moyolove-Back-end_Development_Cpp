@@ -1,1 +1,2 @@
 select, poll, epoll, 事件驱动reactor, http服务器
+lo本次回环地址没有对应的物理网卡
